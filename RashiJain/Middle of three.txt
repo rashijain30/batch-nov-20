@@ -1,0 +1,19 @@
+class Solution{
+    int middle(int A, int B, int C){
+        int max=0, middle=0;
+        if(A>B){
+            if(A>C){
+                if(B>C)
+                    max=B;
+                else
+                    max=C;
+            }
+            else 
+                max=A;
+        }else if(B<C)
+            max=B;
+        else
+            max=C;
+        return max;
+    }
+}

@@ -1,0 +1,35 @@
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    String texts="AABAACAADAABAABA";
+	    String patterns="AABA";
+	    char[] text=texts.toCharArray();
+	    char[] pattern=patterns.toCharArray();
+	    int flag=0, j=0,n=0;
+	    for(int i=0;i<texts.length();i++){
+	        if(text[i]==pattern[j] && flag==0){
+	            j++;
+	            flag=1;
+	            n=i;
+	        }
+	        else if(text[i]==pattern[j] && j==pattern.length-1){
+	            flag=0;
+	            j=0;
+	            System.out.println(n);
+	        }else if(text[i]==pattern[j] && flag==1)
+	            j++;
+	        else if(text[i]!=pattern[j] && flag==1){
+	            flag=0;
+	            j=0;
+	        }
+	    }
+    }
+}
