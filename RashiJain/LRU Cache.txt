@@ -1,0 +1,76 @@
+class LRUCache {
+
+    int cap;
+    final Node head= new Node();
+    final Node tail=new Node();
+    Map<Integer,Node> map;
+
+    LRUCache(int capacity) {
+        this.cap = capacity;
+        map = new HashMap(capacity);
+        head.next=tail;
+        tail.prev=head;
+    }
+    
+    int get(int key) {
+        int result = -1;
+        Node node = map.get(key);
+        if(node!=null){
+            result = node.value;
+            remove(node);
+            add(node);
+        }
+        return result;
+    }
+    
+    void put(int key, int value) {
+        Node node = map.get(key);
+        if(node!=null){
+            node.value = value;
+            remove(node);
+            add(node);
+        }
+        else{
+            if(map.size()==cap){
+                map.remove(tail.prev.key);
+                remove(tail.prev);
+            } 
+            Node new_node = new Node();
+            new_node.key = key;
+            new_node.value = value;
+            
+            add(new_node);
+            map.put(key,new_node);
+        }
+    }
+    
+    void add(Node node){
+        Node next_node = head.next;
+        node.prev=head;
+        node.next= next_node;
+        next_node.prev=node;
+        head.next=node;
+    }
+    
+    void remove(Node node){
+        Node prev_node = node.prev;
+        Node next_node = node.next;
+        
+        prev_node.next = next_node;
+        next_node.prev = prev_node;
+    }
+    
+    class Node{
+        int key;
+        int value;
+        Node prev;
+        Node next;
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */

@@ -1,0 +1,21 @@
+class Solution {
+    public int minAddToMakeValid(String S) {
+        char[] c =S.toCharArray();
+        char[] stack=new char[c.length];
+        int j=-1,total=0;
+        for(int i=0;i<c.length;i++){
+            if(c[i]=='(')
+                stack[++j]=c[i];
+            else if(c[i]==')'){
+                if(j==-1){
+                    total++;
+                    continue;
+                }
+                j--;
+            }
+        }
+        if(j>=0)
+            total+=j+1;
+        return total;
+    }
+}

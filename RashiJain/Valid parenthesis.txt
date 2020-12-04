@@ -1,0 +1,48 @@
+class Solution {
+    public boolean isValid(String s) {
+        if(s.length() == 0)
+            return true;
+        char[] str = new char[s.length()];
+        char[] st = s.toCharArray();
+        int j=0;
+        for(int i=0;i< st.length; i++){
+            if(st[i]=='(' || st[i]=='[' || st[i]=='{'){
+                str[j] = st[i];
+                j++;
+            }else if(j==0)
+                return false;
+            else if(st[i]=='}'){
+                if(j==0 && str[j]=='{')
+                    str[j]='\0';
+                else if(str[j-1]=='{'){
+                    str[j-1]='\0';
+                    j--;
+                }
+                else
+                    return false;
+            }else if(st[i]==')'){
+                 if(j==0 && str[j]=='(')
+                    str[j]='\0';
+                else if(str[j-1]=='('){
+                    str[j-1]='\0';
+                    j--;
+                }
+                else
+                    return false;
+            }else if(st[i]==']'){
+                 if(j==0 && str[j]=='[')
+                    str[j]='\0';
+                else if(str[j-1]=='['){
+                    str[j-1]='\0';
+                    j--;
+                }
+                else
+                    return false;
+            }
+        }
+        if(j==0 && str[j]=='\0')
+        return true;
+        else 
+            return false;
+    }
+}
